@@ -4,11 +4,13 @@ The free modules of the course are here {INSERT YOUTUBE LINK}
 
 The full course is here: https://www.skool.com/ai-dojo-code-rl-in-games-5903/about
 
-Course description:
+---
+
+# Course description:
 
 Train AI agents to crush games. (no boring theory) We take SpaceInvaders as a starting ground & go through everything needed for the Reinforcement Learning (RL) pipeline.👾
 
----
+
 
 
 
@@ -46,7 +48,6 @@ Train AI agents to crush games. (no boring theory) We take SpaceInvaders as a st
 
 📍 Planned: shorter courses for different games, cloud training, exporting games with RL models in them
 
----
 
 Entry requirements:
 
