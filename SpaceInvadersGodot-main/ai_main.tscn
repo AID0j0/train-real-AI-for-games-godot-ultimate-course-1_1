@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cn5pvme6iamsv"]
+
+[ext_resource type="Script" uid="uid://cq8som6ysfs2l" path="res://addons/godot_rl_agents/sync.gd" id="1_gusg8"]
+[ext_resource type="Script" uid="uid://13e05an5xpno" path="res://my_ai_controller_2d.gd" id="2_gusg8"]
+
+[node name="Node" type="Node" unique_id=265216407]
+
+[node name="Sync" type="Node" parent="." unique_id=1374564880]
+script = ExtResource("1_gusg8")
+action_repeat = 4
+speed_up = 0.2
+metadata/_custom_type_script = "uid://cq8som6ysfs2l"
+
+[node name="AIController2D" type="Node2D" parent="." unique_id=723812597]
+script = ExtResource("2_gusg8")
+metadata/_custom_type_script = "uid://ysna4l81vumr"
