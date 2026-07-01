@@ -1,14 +1,18 @@
 extends AIController2D
 
+# ===========================================================================================================# #===========================================================================================================
 @onready var REWARDS = {
-	&"AG":				"random",
-	&"game_lost":		0.,
-	&"life_lost":		0.,
+	&"AG":          "random",
+	&"game_lost":		-0.,
+	&"life_lost":		-0.,
 	&"game_won":		0.,
 	&"alien_shot":		0.,
-	# &"action_repeat": is set in the ready function -> this value is bond to the trained model
+	&"action_repeat": is set in ready # this is bond to the trained model
 }
+
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}
+
+var info_send_counter := 0
 
 var move : int
 var fire : int
@@ -16,15 +20,20 @@ var can_shoot := true
 
 var random_agent := true
 
+#===========================================================================================================
 func _ready() -> void:
-	super._ready()
+	super._ready() # execute the _ready function from the base skript ai_controller_2d.gd
+	for key in REWARDS <------------ fehlt noch 
+		if key == &"AG":
+			continue
+		if not REWARDS[key] is float:
+			assert(false, "REWARDS[%s] is not a float, got: %s" % [key, REWARDS[key]])
 	
 	REWARDS[&"action_repeat"] = get_parent().get_node("Sync").action_repeat
 	print("REWARDS in this experiment:")
-	print(JSON.stringify(REWARDS, "   ", false))
+	print(JSON.stringify(REWARDS, "  ", false))
 	if random_agent:
-		print("WARNING! USING THE RANDOM AGENT --> the ai will not learn anything")
-		
+		print("WARNING! USING THE RANDOM AGENT -->> the ai will not learn anything")
 
 func _process(_delta: float) -> void:
 	activate_imgui()
@@ -92,18 +101,19 @@ func set_action(action) -> void:
 			move = random_action # 0=LEFT, 1=STAY, 2=RIGHT
 			fire = 0 # 0=PEACE, 1=FIRE
 			
-
+			
+# ===========================================================================================================# #===========================================================================================================
 func get_info() -> Dictionary:
+    if info_send_counter >= 11:
+		pass
+	elif info_send_counter == 10:
+		info_dict_for_python.erase("experiment_rewards")
+		info_send_counter = 11
+	else:
+		info_send_counter += 1
 	return info_dict_for_python
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			
+			
+			
+			
+			

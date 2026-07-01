@@ -10,11 +10,15 @@ extends AIController2D
 }
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}
 
+var info_sent_counter := 0
+
 var move : int
 var fire : int
 var can_shoot := true
 
 var random_agent := true
+
+@onready var ZERO_OBS = {"obs": "".rpad(84 * 84 * 2, "0")}
 
 func _ready() -> void:
 	super._ready()
@@ -60,25 +64,27 @@ func activate_imgui():
 		
 
 func get_obs() -> Dictionary:
-	#assert(false, "the get_obs method is not implemented when extending from ai_controller") 
-	return {"obs":[0, 1, 2]}
+	return ZERO_OBS
 
 func get_reward() -> float:	
 	#assert(false, "the get_reward method is not implemented when extending from ai_controller") 
 	return 0.0
-	
-func get_action_space() -> Dictionary:
-	#assert(false, "the get get_action_space method is not implemented when extending from ai_controller") 
+
+func get_obs_space() -> Dictionary:
 	return {
-		"example_actions_continous" : {
-			"size": 2,
-			"action_type": "continuous"
-		},
-		"example_actions_discrete" : {
-			"size": 2,
-			"action_type": "discrete"
-		},
+		"obs": {
+			"size": [1, 84, 84], # [channels, height, width]
+			"space": "box"
 		}
+	}
+
+func get_action_space() -> Dictionary:
+	return {
+		"action": {
+			"size": 4,
+			"action_type": "discrete"
+		}
+	}
 	
 func set_action(action) -> void:	
 	if not random_agent:
@@ -94,6 +100,13 @@ func set_action(action) -> void:
 			
 
 func get_info() -> Dictionary:
+	if info_sent_counter >= 11:
+		pass
+	elif info_sent_counter == 10:
+		info_dict_for_python.erase("experiment_rewards")
+		info_sent_counter = 11
+	else:
+		info_sent_counter += 1
 	return info_dict_for_python
 	
 	

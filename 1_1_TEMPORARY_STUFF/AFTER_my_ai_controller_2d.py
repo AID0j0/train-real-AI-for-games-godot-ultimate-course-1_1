@@ -1,15 +1,13 @@
 extends AIController2D
 
-# ===========================================================================================================# #===========================================================================================================
 @onready var REWARDS = {
-	&"AG":          "random",
-	&"game_lost":		-0.,
-	&"life_lost":		-0.,
+	&"AG":				"random",
+	&"game_lost":		0.,
+	&"life_lost":		0.,
 	&"game_won":		0.,
 	&"alien_shot":		0.,
-	&"action_repeat": is set in ready # this is bond to the trained model
+	# &"action_repeat": is set in the ready function -> this value is bond to the trained model
 }
-
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}
 
 var move : int
@@ -18,20 +16,18 @@ var can_shoot := true
 
 var random_agent := true
 
-#===========================================================================================================
+@onready var ZER_OBS = {"obs": "".rpad(84 * 84 * 2, "0")} <============================================
+
+
 func _ready() -> void:
-	super._ready() # execute the _ready function from the base skript ai_controller_2d.gd
-	for key in REWARDS <------------ fehlt noch 
-		if key == &"AG":
-			continue
-		if not REWARDS[key] is float:
-			assert(false, "REWARDS[%s] is not a float, got: %s" % [key, REWARDS[key]])
+	super._ready()
 	
 	REWARDS[&"action_repeat"] = get_parent().get_node("Sync").action_repeat
 	print("REWARDS in this experiment:")
-	print(JSON.stringify(REWARDS, "  ", false))
+	print(JSON.stringify(REWARDS, "   ", false))
 	if random_agent:
-		print("WARNING! USING THE RANDOM AGENT -->> the ai will not learn anything")
+		print("WARNING! USING THE RANDOM AGENT --> the ai will not learn anything")
+		
 
 func _process(_delta: float) -> void:
 	activate_imgui()
@@ -68,24 +64,27 @@ func activate_imgui():
 
 func get_obs() -> Dictionary:
 	#assert(false, "the get_obs method is not implemented when extending from ai_controller") 
-	return {"obs":[0, 1, 2]}
+	return ZER_OBS <============================================
 
 func get_reward() -> float:	
 	#assert(false, "the get_reward method is not implemented when extending from ai_controller") 
 	return 0.0
 	
-func get_action_space() -> Dictionary:
-	#assert(false, "the get get_action_space method is not implemented when extending from ai_controller") 
+func get_obs_space() -> Dictionary: <============================================ full F
 	return {
-		"example_actions_continous" : {
-			"size": 2,
-			"action_type": "continuous"
-		},
-		"example_actions_discrete" : {
-			"size": 2,
-			"action_type": "discrete"
-		},
+		"obs": {
+			"size": [1, 84, 84], # [Channels, Height, Width]
+			"space": "box"
 		}
+	}
+	
+func get_action_space() -> Dictionary: <============================================ full F
+	return {
+		"action": {
+			"size": 4,
+			"action_type": "discrete"
+		}
+	}
 	
 func set_action(action) -> void:	
 	if not random_agent:
@@ -99,19 +98,18 @@ func set_action(action) -> void:
 			move = random_action # 0=LEFT, 1=STAY, 2=RIGHT
 			fire = 0 # 0=PEACE, 1=FIRE
 			
-			
-# ===========================================================================================================# #===========================================================================================================
+
 func get_info() -> Dictionary:
-    if info_send_counter >= 11:
-		pass
-	elif info_send_counter == 10:
-		info_dict_for_python.erase("experiment_rewards")
-		info_send_counter = 11
-	else:
-		info_send_counter += 1
 	return info_dict_for_python
-			
-			
-			
-			
-			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

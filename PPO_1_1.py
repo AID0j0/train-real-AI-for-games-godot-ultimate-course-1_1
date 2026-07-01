@@ -402,6 +402,7 @@ if __name__ == "__main__":
                     if not experiment_rewards:
                         experiment_rewards = infos[0].get("experiment_rewards") # infos[0] just takes it from the first env
                         print("experiment_rewards")
+                        print(experiment_rewards)
                         if experiment_rewards:
                             wandb.config.update({"#experiment_rewards": str(experiment_rewards)})
 
