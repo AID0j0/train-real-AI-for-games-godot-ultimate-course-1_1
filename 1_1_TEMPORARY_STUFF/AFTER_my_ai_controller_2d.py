@@ -7,7 +7,7 @@ extends AIController2D
 	&"life_lost":		-0.,
 	&"game_won":		0.,
 	&"alien_shot":		0.,
-	#&"action_repeat": is set in ready # this is bond to the trained model
+	&"action_repeat": is set in ready # this is bond to the trained model
 }
 
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}
@@ -18,10 +18,10 @@ var can_shoot := true
 
 var random_agent := true
 
-# ===========================================================================================================# #===========================================================================================================
+#===========================================================================================================
 func _ready() -> void:
 	super._ready() # execute the _ready function from the base skript ai_controller_2d.gd
-	for key in REWARDS:
+	for key in REWARDS <------------ fehlt noch 
 		if key == &"AG":
 			continue
 		if not REWARDS[key] is float:

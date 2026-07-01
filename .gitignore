@@ -1,0 +1,77 @@
+# Godot 4+ specific ignores
+.godot/
+.nomedia
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+export_credentials.cfg
+*.tmp
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores (C#)
+.mono/
+data_*/
+mono_crash.*.json
+
+# Build/export results (very important!)
+bin/
+build/
+export/
+dist/
+exports/
+*.exe
+*.x86_64
+*.x86
+*.pck
+*.zip
+
+# Python/ML stuff ────────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# RL training outputs ─ common with godot_rl_agents (SB3, CleanRL, etc.)
+logs/
+runs/
+wandb/
+wandb-debug.log
+wandb-*.log
+lightning_logs/           # sometimes used even outside pure Lightning
+tb_logs/
+tensorboard/
+events.out.tfevents.*     # raw TensorBoard event files
+
+# Model checkpoints & exports (huge!)
+*.zip                     # Stable-Baselines3 default format
+*.pth
+*.ckpt
+*.onnx                    # exported inference models
+**/*.model			# btr macht sowas
+**/*/*.model
+grla_skripts/debug_frames/*.model
+checkpoints/
+experiments/
+experiment_*/
+Experiment_*/
+
+# Training videos/recordings (very common with --viz)
+*.mp4
+*.avi
+videos/
+recordings/
+vidz_for_wandb/
+
+# Editor/IDE junk
+.vscode/
+.vs/
+.idea/
+*.csproj
+*.sln
+.~lock.*
+grla_skripts/debug_frames/stack.png
