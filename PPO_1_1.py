@@ -81,7 +81,7 @@ def parse_args():
     parser.add_argument("--max_grad_norm", type=float, default=0.5)
 
     parser.add_argument("--track", type=lambda x: bool(strtobool(x)), default=True)
-    parser.add_argument("--wandb_project_name", type=str, default="SpaceInavder_RL")
+    parser.add_argument("--wandb_project_name", type=str, default="TEST_SpaceInvader")
     parser.add_argument("--checkpoint", type=str, default=None,
                         help="Path to a .pth checkpoint file to resume training from")
     parser.add_argument("--save_onnx", type=lambda x: bool(strtobool(x)), default=False,
