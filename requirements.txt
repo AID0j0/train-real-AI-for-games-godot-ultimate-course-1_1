@@ -1,0 +1,21 @@
+# exact python libaries used in the course:
+
+# Python 3.12.11
+ 
+# No GPU:
+#   pip install torch torchvision
+ 
+# GPU build used here (cu126) - adjust index-url/version to match your CUDA version:
+#   pip install torch==2.12.1+cu126 torchvision==0.27.1+cu126 --index-url https://download.pytorch.org/whl/cu126
+torch==2.12.1+cu126
+torchvision==0.27.1+cu126
+ 
+godot-rl[cleanrl]==0.8.2
+imageio==2.37.3
+ 
+# pulled in via godot-rl[cleanrl], but listed explicitly since you configure/use it directly
+wandb==0.27.2
+ 
+# not required by torch/godot-rl/imageio - installed independently
+psutil==7.2.2
+GPUtil==1.4.0
