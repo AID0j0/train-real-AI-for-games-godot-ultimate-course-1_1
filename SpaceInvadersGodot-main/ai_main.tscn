@@ -8,6 +8,7 @@
 [node name="Sync" type="Node" parent="." unique_id=1374564880]
 script = ExtResource("1_gusg8")
 action_repeat = 4
+speed_up = 10.0
 metadata/_custom_type_script = "uid://cq8som6ysfs2l"
 
 [node name="AIController2D" type="Node2D" parent="." unique_id=723812597]

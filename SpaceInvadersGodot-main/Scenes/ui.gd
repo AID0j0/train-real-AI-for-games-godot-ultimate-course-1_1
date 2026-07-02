@@ -47,7 +47,7 @@ func on_restart_button_press():
 	get_tree().reload_current_scene()
 
 func on_life_lost(lifes_left:int):
-	print_debug(lifes_left)
+	#print_debug(lifes_left)
 	if lifes_left != 0:
 		var life_texture_rect: TextureRect =  lifes_ui_container.get_child(lifes_left)
 		life_texture_rect.queue_free()
