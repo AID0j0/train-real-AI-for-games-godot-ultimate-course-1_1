@@ -13,6 +13,8 @@ var life_texture = preload("res://Assets/Player/Player.png")
 @export var invader_spawner: InvaderSpawner
 @export var life_manager: LifeManager
 
+@onready var ai_c: Node = AiMain.get_node("AIController2D")
+
 func _ready():
 	points_label.text = "SCORE: %d" % 0
 	points_counter.on_points_increased.connect(points_increased)
@@ -37,14 +39,17 @@ func points_increased(points: int):
 	
 func on_game_lost():
 	center_container.visible = true
+	ai_c.restart_game = true
 	
 func on_game_won():
 	label.text = "You won!"
 	label.add_theme_color_override("font_color", Color.GREEN)
 	center_container.visible = true
+	ai_c.restart_game = true
 
 func on_restart_button_press():
-	get_tree().reload_current_scene()
+	#get_tree().reload_current_scene()
+	ai_c.restart_game = true
 
 func on_life_lost(lifes_left:int):
 	#print_debug(lifes_left)

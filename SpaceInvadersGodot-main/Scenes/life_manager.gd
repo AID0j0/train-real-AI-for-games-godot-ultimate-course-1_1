@@ -3,7 +3,7 @@ class_name LifeManager
 
 signal on_life_lost(lifes_left: int)
 
-@export var lifes = 3
+@export var lifes = 1
 @onready var player: Player = $"../Player"
 @onready var player_scene = preload("res://Scenes/player.tscn")
 

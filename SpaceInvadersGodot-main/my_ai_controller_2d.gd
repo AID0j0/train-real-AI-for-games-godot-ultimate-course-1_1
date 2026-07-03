@@ -18,6 +18,8 @@ var can_shoot := true
 
 var random_agent := true
 
+var restart_game := false
+
 @onready var ZERO_OBS = {"obs": "".rpad(84 * 84 * 2, "0")}
 
 func _ready() -> void:
@@ -32,6 +34,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	activate_imgui()
+	
+	restart_game = AiMain.handle_game_reload(restart_game)
+	if restart_game:
+		pass
 
 
 func activate_imgui():
