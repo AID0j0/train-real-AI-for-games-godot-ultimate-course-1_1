@@ -19,6 +19,9 @@ var can_shoot := true
 var random_agent := true
 
 var restart_game := false
+var restart_game_prev := false
+var restart_game_pending := false
+
 
 @onready var ZERO_OBS = {"obs": "".rpad(84 * 84 * 2, "0")}
 
@@ -34,10 +37,13 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	activate_imgui()
+	if restart_game and not restart_game_prev: # this is true for 1 frame only
+		restart_game_pending = true
+	restart_game_prev = restart_game
 	
 	restart_game = AiMain.handle_game_reload(restart_game)
-	if restart_game:
-		pass
+
+
 
 
 func activate_imgui():
@@ -104,6 +110,12 @@ func set_action(action) -> void:
 			move = random_action # 0=LEFT, 1=STAY, 2=RIGHT
 			fire = 0 # 0=PEACE, 1=FIRE
 			
+
+func get_done() -> bool:
+	if restart_game_pending:
+		restart_game_pending = false
+		return true
+	return false
 
 func get_info() -> Dictionary:
 	if info_sent_counter >= 11:
