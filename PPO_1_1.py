@@ -411,9 +411,10 @@ if __name__ == "__main__":
 
                 try: # note: if the done comes along with lost/won then it could be moved there for a bit of optimization
                     for blw in infos:
-                        if blw["busy_lost_won"] in ["lost", "won"]:
-                            won_lost_list.append(busy_lost_won_map[blw["busy_lost_won"]])
+                        if "in_game_score" in blw:
                             ingame_score_list.append(blw["in_game_score"])
+                        if blw.get("busy_lost_won") in ["lost", "won"]:
+                            won_lost_list.append(busy_lost_won_map[blw["busy_lost_won"]])
 
                 except Exception as e: # -> in case its not coming from godot get_info()
                     # print(f"busy_lost_won Error: {e}")
@@ -452,7 +453,7 @@ if __name__ == "__main__":
                     print(
                         f"PPO avg score {avg_score:.2f} | "
                         f"avg ingame points {avg_ingame_score:.0f} | "
-                        f"gams {episodes}"
+                        f"games {episodes} |"
                         f"total_timesteps {global_step:_} | "  # underscore instead of comma
                         f"Win/Loss ratio {moving_win_loss_ratio:.2f} | "
                         f"fps {(global_step - last_steps) / (time.time() - last_time):.2f} | ",

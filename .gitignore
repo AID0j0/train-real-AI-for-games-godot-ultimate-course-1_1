@@ -28,6 +28,7 @@ exports/
 *.x86
 *.pck
 *.zip
+libimgui-godot-native.windows.debug.x86_64.dll
 
 # Python/ML stuff ────────────────────────────────────────────────────────────────
 __pycache__/

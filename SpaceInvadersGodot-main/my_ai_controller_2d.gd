@@ -12,6 +12,8 @@ extends AIController2D
 
 var info_sent_counter := 0
 
+var ingame_points := 0 # <===============
+
 var move : int
 var fire : int
 var can_shoot := true
@@ -125,6 +127,8 @@ func get_info() -> Dictionary:
 		info_sent_counter = 11
 	else:
 		info_sent_counter += 1
+		
+	info_dict_for_python["in_game_score"] = ingame_points  # <===============
 	return info_dict_for_python
 	
 	
