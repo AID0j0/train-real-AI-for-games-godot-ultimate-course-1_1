@@ -88,11 +88,12 @@ func get_obs() -> Dictionary:
 func give_reward(source: StringName) -> void:
 	this_ai_step_rewards[source] = this_ai_step_rewards.get(source, 0.0) + REWARDS[source]
 
-func get_reward() -> float:	
+func get_reward() -> float: # gets reset on every exchange between python and godot
+	# exachange timing happens after x-frames with x being the action_repeat value
 	var total := 0.0 # the decimal is important!
-	
-	
-	
+	for value in this_ai_step_rewards.values():
+		total += value
+	this_ai_step_rewards.clear()	
 	return clamp(total, -1, 1)
 
 func get_obs_space() -> Dictionary:
