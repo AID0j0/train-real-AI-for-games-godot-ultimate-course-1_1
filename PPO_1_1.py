@@ -142,7 +142,6 @@ class Agent(nn.Module):
         c, h, w = envs.single_observation_space.shape
         self.input_channels = c * STACK_SIZE
 
-        # CHANGE 1: Switched from self.nvec (array) to .n (integer)
         self.n_actions = envs.single_action_space.nvec[0]
 
         self.network = nn.Sequential(
@@ -175,12 +174,10 @@ class Agent(nn.Module):
         hidden = self.fc(self.network(x / 255.0))
         logits = self.actor(hidden)
 
-        # CHANGE 3: Removed split_logits/Categorical list. Using single Categorical
         probs = Categorical(logits=logits)
         if action is None:
             action = probs.sample()
 
-        # CHANGE 4: Simplified log_prob and entropy (no longer summing across branches)
         return action, probs.log_prob(action), probs.entropy(), self.critic(hidden)
 
 

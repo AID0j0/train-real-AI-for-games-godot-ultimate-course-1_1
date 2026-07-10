@@ -113,8 +113,7 @@ class BTRGodotEnv(CleanRLGodotEnv):
 
     @property
     def single_action_space(self):
-        # Mirror PPO: read the actual action count from the env's MultiDiscrete space
-        # return gym.spaces.Discrete(n_actions) # alternative: import gymnasium as gym
+        # this basically mirrors the code in PPO: read the actual action count from the env's MultiDiscrete space
         return self.single_action_space_parent.nvec[0]
 
     @property

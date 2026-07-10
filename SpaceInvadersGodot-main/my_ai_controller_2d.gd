@@ -12,13 +12,13 @@ extends AIController2D
 
 var info_sent_counter := 0
 
-var ingame_points := 0 # <===============
+var ingame_points := 0
 
 var move : int
 var fire : int
 var can_shoot := true
 
-var random_agent := true
+var random_agent := false
 
 var restart_game := false
 var restart_game_prev := false
@@ -101,16 +101,16 @@ func get_action_space() -> Dictionary:
 	}
 	
 func set_action(action) -> void:	
-	if not random_agent:
-		pass
+	if random_agent:
+		action = randi_range(0, 3) # picks 0, 1, 2 or 3
 	else:
-		var random_action = randi_range(0, 3) # picks 0, 1, 2 or 3
-		if random_action == 3:
-			move = 1 # 0=LEFT, 1=STAY, 2=RIGHT
-			fire = 1 # 0=PEACE, 1=FIRE
-		else:
-			move = random_action # 0=LEFT, 1=STAY, 2=RIGHT
-			fire = 0 # 0=PEACE, 1=FIRE
+		action = int(action["action"]) # e.g.: { "action": 1.0 } -> 1
+	if action == 3:
+		move = 1 # 0=LEFT, 1=STAY, 2=RIGHT
+		fire = 1 # 0=PEACE, 1=FIRE
+	else:
+		move = action # 0=LEFT, 1=STAY, 2=RIGHT
+		fire = 0 # 0=PEACE, 1=FIRE
 			
 
 func get_done() -> bool:
@@ -127,8 +127,7 @@ func get_info() -> Dictionary:
 		info_sent_counter = 11
 	else:
 		info_sent_counter += 1
-		
-	info_dict_for_python["in_game_score"] = ingame_points  # <===============
+	info_dict_for_python["in_game_score"] = ingame_points
 	return info_dict_for_python
 	
 	
