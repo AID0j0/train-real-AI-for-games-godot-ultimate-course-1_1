@@ -42,6 +42,7 @@ func on_game_lost():
 	ai_c.restart_game = true
 	
 func on_game_won():
+	ai_c.give_reward(&"game_won")
 	label.text = "You won!"
 	label.add_theme_color_override("font_color", Color.GREEN)
 	center_container.visible = true

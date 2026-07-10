@@ -1,14 +1,15 @@
 extends AIController2D
 
 @onready var REWARDS = {
-	&"AG":				"random",
-	&"game_lost":		0.,
-	&"life_lost":		0.,
-	&"game_won":		0.,
-	&"alien_shot":		0.,
+	&"AG":				"1_PPO",
+	&"game_lost":		-1.,
+	&"life_lost":		-1.,
+	&"game_won":		1.,
+	&"alien_shot":		1.,
 	# &"action_repeat": is set in the ready function -> this value is bond to the trained model
 }
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}
+var this_ai_step_rewards := {}
 
 var info_sent_counter := 0
 
@@ -50,6 +51,9 @@ func _process(_delta: float) -> void:
 
 func activate_imgui():
 	ImGui.Begin("vizualizing inputs")
+	if random_agent:
+		ImGui.TextWrapped("ATTENTION random agent -> the AI is not learning anyhting!")
+	
 	var action_name = "if empty imgui crashes"  # 0=LEFT, 1=STAY, 2=RIGHT
 	if move == 0:
 		action_name = "move_left"
@@ -73,16 +77,23 @@ func activate_imgui():
 		shooting_allowed = "not allowed to shot"
 	ImGui.TextWrapped(shooting_allowed)
 	
-	
+	ImGui.TextWrapped("--- this ai step`s reward")
+	ImGui.Text(JSON.stringify(this_ai_step_rewards, "   ", false))
 	ImGui.End()		
 		
 
 func get_obs() -> Dictionary:
 	return ZERO_OBS
 
+func give_reward(source: StringName) -> void:
+	this_ai_step_rewards[source] = this_ai_step_rewards.get(source, 0.0) + REWARDS[source]
+
 func get_reward() -> float:	
-	#assert(false, "the get_reward method is not implemented when extending from ai_controller") 
-	return 0.0
+	var total := 0.0 # the decimal is important!
+	
+	
+	
+	return clamp(total, -1, 1)
 
 func get_obs_space() -> Dictionary:
 	return {

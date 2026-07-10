@@ -18,3 +18,4 @@ func increase_points(points_to_add: int):
 	points += points_to_add
 	on_points_increased.emit(points)
 	ai_c.ingame_points = points
+	ai_c.give_reward(&"alien_shot")
