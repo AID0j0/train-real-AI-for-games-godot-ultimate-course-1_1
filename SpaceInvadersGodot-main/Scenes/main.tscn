@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://x52tm03ns8q"]
 
 [ext_resource type="PackedScene" uid="uid://dtone6hpojcx1" path="res://Scenes/player.tscn" id="1_tywl6"]
+[ext_resource type="Script" uid="uid://c4asqchoh6rx6" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="PackedScene" uid="uid://dfn1yx70sdynd" path="res://Scenes/bullet_catcher.tscn" id="2_0880y"]
 [ext_resource type="PackedScene" uid="uid://mgomvu2yo3u5" path="res://Scenes/invader_spawner.tscn" id="3_sn81r"]
 [ext_resource type="PackedScene" uid="uid://dn47qdhpsw0s2" path="res://ufo_spawner.tscn" id="4_melfw"]
@@ -16,6 +17,18 @@ size = Vector2(40, 617)
 size = Vector2(1200, 64)
 
 [node name="main" type="Node" unique_id=1453042186]
+script = ExtResource("1_ynf5e")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=810577661]
+offset_left = -45.0
+offset_top = 73.0
+offset_right = 39.0
+offset_bottom = 157.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1116454622]
+handle_input_locally = false
+size = Vector2i(84, 84)
+render_target_update_mode = 4
 
 [node name="Player" parent="." unique_id=1521970396 instance=ExtResource("1_tywl6")]
 position = Vector2(0, 302)

@@ -27,6 +27,7 @@ var restart_game_pending := false
 
 
 @onready var ZERO_OBS = {"obs": "".rpad(84 * 84 * 2, "0")}
+var game_viewport
 
 func _ready() -> void:
 	super._ready()
@@ -83,7 +84,15 @@ func activate_imgui():
 		
 
 func get_obs() -> Dictionary:
-	return ZERO_OBS
+	if not is_instance_valid(game_viewport):
+		return ZERO_OBS
+	var texture = game_viewport.get_texture()
+	if texture == null:
+		return ZERO_OBS
+	var img: Image = texture.get_image()
+	img.convert(Image.FORMAT_L8)
+	var obs_string = img.get_data().hex_encode()
+	return {"obs": obs_string}
 
 func give_reward(source: StringName) -> void:
 	this_ai_step_rewards[source] = this_ai_step_rewards.get(source, 0.0) + REWARDS[source]

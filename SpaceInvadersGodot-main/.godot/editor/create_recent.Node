@@ -1,3 +1,5 @@
+SubViewport
+SubViewportContainer
 AIController2D
 Sync
 Node
@@ -11,5 +13,3 @@ Button
 CenterContainer
 CanvasLayer
 CollisionShape2D
-Area2D
-CollisionPolygon2D
