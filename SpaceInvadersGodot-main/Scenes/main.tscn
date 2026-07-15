@@ -20,13 +20,19 @@ size = Vector2(1200, 64)
 script = ExtResource("1_ynf5e")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=810577661]
-offset_left = -45.0
-offset_top = 73.0
-offset_right = 39.0
-offset_bottom = 157.0
+offset_left = -44.0
+offset_top = -506.0
+offset_right = 40.0
+offset_bottom = -422.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1116454622]
+disable_3d = true
 handle_input_locally = false
+snap_2d_vertices_to_pixel = true
+msaa_2d = 1
+use_taa = true
+sdf_oversize = 0
+sdf_scale = 0
 size = Vector2i(84, 84)
 render_target_update_mode = 4
 

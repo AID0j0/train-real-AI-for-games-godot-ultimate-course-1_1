@@ -48,8 +48,6 @@ func _process(_delta: float) -> void:
 	restart_game = AiMain.handle_game_reload(restart_game)
 
 
-
-
 func activate_imgui():
 	ImGui.Begin("vizualizing inputs")
 	if random_agent:
