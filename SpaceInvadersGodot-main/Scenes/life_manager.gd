@@ -11,7 +11,11 @@ signal on_life_lost(lifes_left: int)
 
 func _ready():
 	(player as Player).player_destroyed.connect(on_player_destroyed)
-	
+	ai_c.lifes_left_and_aliens_shot["remaining_lifes"] = lifes
+
+func _process(_delta: float) -> void:
+	ai_c.lifes_left_and_aliens_shot["remaining_lifes"] = lifes
+
 func on_player_destroyed():
 		lifes -= 1
 		ai_c.give_reward(&"life_lost")

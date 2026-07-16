@@ -20,7 +20,7 @@ from godot_rl.wrappers.clean_rl_wrapper import CleanRLGodotEnv
 # --- CONFIGURATION ---
 STACK_SIZE = 4
 
-SAVE_PNGS = True
+SAVE_PNGS = False
 png_counter = 1
 DEBUG_IMAGE_DIR = Path("vizualize_ai_inputs")
 if SAVE_PNGS:
@@ -403,8 +403,8 @@ if __name__ == "__main__":
                         if experiment_rewards:
                             wandb.config.update({"#experiment_rewards": str(experiment_rewards)})
 
-                #print("reward, terminated, truncated, infos ")
-                #print(reward, terminated, truncated, infos )
+                print("reward, terminated, truncated, infos ")
+                print(reward, terminated, truncated, infos )
 
                 try: # note: if the done comes along with lost/won then it could be moved there for a bit of optimization
                     for blw in infos:

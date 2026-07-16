@@ -24,6 +24,9 @@ var random_agent := false
 var restart_game := false
 var restart_game_prev := false
 var restart_game_pending := false
+var won_lost_pending := false
+var busy_lost_won := "busy"
+var lifes_left_and_aliens_shot := {"remaining_lifes": 3, "aliens_shot": 0}
 
 
 @onready var ZERO_OBS = {"obs": "".rpad(84 * 84 * 2, "0")}
@@ -43,6 +46,7 @@ func _process(_delta: float) -> void:
 	activate_imgui()
 	if restart_game and not restart_game_prev: # this is true for 1 frame only
 		restart_game_pending = true
+		won_lost_pending = true
 	restart_game_prev = restart_game
 	
 	restart_game = AiMain.handle_game_reload(restart_game)
@@ -76,8 +80,11 @@ func activate_imgui():
 		shooting_allowed = "not allowed to shot"
 	ImGui.TextWrapped(shooting_allowed)
 	
-	ImGui.TextWrapped("--- this ai step`s reward")
+	ImGui.TextWrapped("--- this ai step`s reward ---")
 	ImGui.Text(JSON.stringify(this_ai_step_rewards, "   ", false))
+	
+	ImGui.TextWrapped("--- lifes_left_and_aliens_shot ---")
+	ImGui.Text(JSON.stringify(lifes_left_and_aliens_shot, "   ", false))
 	ImGui.End()		
 		
 
@@ -139,6 +146,17 @@ func get_done() -> bool:
 	return false
 
 func get_info() -> Dictionary:
+	if won_lost_pending:
+		won_lost_pending = false
+		if lifes_left_and_aliens_shot["remaining_lifes"] == 0:
+			busy_lost_won = "lost"
+		elif lifes_left_and_aliens_shot["aliens_shot"] == 55:
+			busy_lost_won = "won"
+	else:
+		busy_lost_won = "busy"
+	
+	info_dict_for_python["busy_lost_won"] = busy_lost_won
+	
 	if info_sent_counter >= 11:
 		pass
 	elif info_sent_counter == 10:

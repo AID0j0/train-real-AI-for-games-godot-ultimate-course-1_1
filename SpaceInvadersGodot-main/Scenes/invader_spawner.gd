@@ -28,9 +28,12 @@ var invader_shot_scene = preload("res://Scenes/invader_shot.tscn")
 var invader_total_count = ROWS * COLUMNS
 var invader_destroyed_count = 0
 
+@onready var ai_c: Node = AiMain.get_node("AIController2D")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	ai_c.lifes_left_and_aliens_shot["aliens_shot"] = invader_destroyed_count
 	
 	movement_timer.timeout.connect(move_invaders)
 	shot_timer.timeout.connect(on_invader_shoot)
@@ -62,6 +65,8 @@ func _ready():
 			var spawn_position = Vector2(x, y)
 			spawn_invader(invader_config, spawn_position)
 
+func _process(_delta: float) -> void:
+	ai_c.lifes_left_and_aliens_shot["aliens_shot"] = invader_destroyed_count
 
 func spawn_invader(invader_config, spawn_position:Vector2):
 	var invader = invader_scene.instantiate() as Invader
