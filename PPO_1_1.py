@@ -17,6 +17,7 @@ import psutil
 from godot_rl.wrappers.clean_rl_wrapper import CleanRLGodotEnv
 
 
+
 # --- CONFIGURATION ---
 STACK_SIZE = 4
 
@@ -44,6 +45,13 @@ class ImprovedGodotEnv(CleanRLGodotEnv):
         for env in self.envs:
             env._send_as_json(message)
             env._get_json_dict()
+
+def safe_get_gpus():
+    """Wraps GPUtil.getGPUs() so machines without an NVIDIA GPU don't crash."""
+    try:
+        return GPUtil.getGPUs()
+    except (OSError, Exception):
+        return []
 
 def append_resume_step(step: int):
     # requires wandb to be imported and a run to be active
@@ -191,7 +199,7 @@ class TrainingMonitor:
         self.prev_time = time.time()
 
         # --- Baseline Captures (System Idle State) ---
-        gpus = GPUtil.getGPUs()
+        gpus = safe_get_gpus()
         self.gpu_total_mem = gpus[0].memoryTotal / 1024 if gpus else 0
         self.ram_total_gb = psutil.virtual_memory().total / (1024 ** 3)
 
@@ -229,7 +237,7 @@ class TrainingMonitor:
         self.prev_time = now
 
         # --- Fetch Stats ---
-        gpus = GPUtil.getGPUs()
+        gpus = safe_get_gpus()
         gpu = gpus[0] if gpus else None
         ram = psutil.virtual_memory()
 

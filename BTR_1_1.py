@@ -24,7 +24,6 @@ import GPUtil
 import psutil
 from collections import deque
 
-
 def hex_to_ndarray(hex_data, shape=(84, 84, 1)):
     """Decodes hex string from Godot or returns raw array if already decoded."""
     if isinstance(hex_data, (str, np.str_)):
@@ -141,6 +140,13 @@ class BTRGodotEnv(CleanRLGodotEnv):
             env._get_json_dict()
 
 
+def safe_get_gpus():
+    """Wraps GPUtil.getGPUs() so machines without an NVIDIA GPU don't crash."""
+    try:
+        return GPUtil.getGPUs()
+    except (OSError, Exception):
+        return []
+
 class TrainingMonitor:
     def __init__(self, num_envs=1):
         self.num_envs = num_envs
@@ -151,7 +157,7 @@ class TrainingMonitor:
         self.prev_time = time.time()
 
         # --- Baseline Captures (System Idle State) ---
-        gpus = GPUtil.getGPUs()
+        gpus = safe_get_gpus()
         self.gpu_total_mem = gpus[0].memoryTotal / 1024 if gpus else 0
         self.ram_total_gb = psutil.virtual_memory().total / (1024 ** 3)
 
@@ -189,7 +195,7 @@ class TrainingMonitor:
         self.prev_time = now
 
         # --- Fetch Stats ---
-        gpus = GPUtil.getGPUs()
+        gpus = safe_get_gpus()
         gpu = gpus[0] if gpus else None
         ram = psutil.virtual_memory()
 
