@@ -1588,8 +1588,10 @@ def main():
     if (device_name == None):
         gpu = "0"
         device = torch.device('cuda:' + gpu if torch.cuda.is_available() else 'cpu')
-        print(f"\nDevice: {device}. If this does not say (cuda), you should be worried."
-              f" Running this on CPU is extremely slow\n")
+        print(f"\n if this says cuda it means you are using the GPU for the training: {device}\n")
+        #print(f"\nDevice: {device}. If this does not say (cuda), you should be worried."
+              #f" Running this on CPU is extremely slow\n")
+            # TODO: test if this is only true for the Wii Emulator pipeline or also for the Godot pipeline
     else:
         device = torch.device(device_name)
         print(f"\nDevice: {device}")
