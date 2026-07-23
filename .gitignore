@@ -53,8 +53,8 @@ events.out.tfevents.*     # raw TensorBoard event files
 #*.pth
 *.ckpt
 *.onnx                    # exported inference models
-**/*.model			# btr macht sowas
-**/*/*.model
+#**/*.model			# btr macht sowas
+#**/*/*.model
 grla_skripts/debug_frames/*.model
 checkpoints/
 experiments/
