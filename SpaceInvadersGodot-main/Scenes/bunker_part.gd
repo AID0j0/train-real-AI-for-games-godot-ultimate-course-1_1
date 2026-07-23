@@ -4,6 +4,8 @@ extends Area2D
 
 @export var sprite_array: Array[Texture2D]
 
+@onready var ai_c: Node = AiMain.get_node("AIController2D")
+
 var damage = 0
 const MAX_DAMAGE = 3
 
@@ -20,6 +22,8 @@ func _on_area_entered(area):
 			sprite.texture = sprite_array[damage - 1]
 		else:
 			queue_free()
+		if area is Laser:
+			ai_c.give_reward(&"shot_missed")
 	
 	if area is Invader:
 		queue_free()

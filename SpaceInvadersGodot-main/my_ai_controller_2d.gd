@@ -1,11 +1,12 @@
 extends AIController2D
 
 @onready var REWARDS = {
-	&"AG":				"1_PPO",
+	&"AG":				"4_PPO",
+	&"shot_missed":		-0.02,
 	&"game_lost":		-1.,
-	&"life_lost":		-1.,
+	&"life_lost":		-0.9, 
 	&"game_won":		1.,
-	&"alien_shot":		1.,
+	&"alien_shot":		0.2,
 	# &"action_repeat": is set in the ready function -> this value is bond to the trained model
 }
 @onready var info_dict_for_python := {"experiment_rewards": REWARDS}

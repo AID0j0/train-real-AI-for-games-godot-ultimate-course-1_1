@@ -50,7 +50,7 @@ events.out.tfevents.*     # raw TensorBoard event files
 
 # Model checkpoints & exports (huge!)
 *.zip                     # Stable-Baselines3 default format
-*.pth
+#*.pth
 *.ckpt
 *.onnx                    # exported inference models
 **/*.model			# btr macht sowas
