@@ -1,8 +1,11 @@
 extends AIController2D
 
+var random_agent := false
+var training_with_BTR := true # set this to true when training with BTR.py — sends Ignore/First flags over the network
+
 @onready var REWARDS = {
-	&"AG":				"4_PPO",
-	&"shot_missed":		-0.02,
+	&"AG":				"1_BTR",
+	&"shot_missed":		-0.0,
 	&"game_lost":		-1.,
 	&"life_lost":		-0.9, 
 	&"game_won":		1.,
@@ -20,7 +23,6 @@ var move : int
 var fire : int
 var can_shoot := true
 
-var random_agent := false
 
 var restart_game := false
 var restart_game_prev := false
@@ -157,6 +159,10 @@ func get_info() -> Dictionary:
 		busy_lost_won = "busy"
 	
 	info_dict_for_python["busy_lost_won"] = busy_lost_won
+	
+	if training_with_BTR:
+		info_dict_for_python["Ignore"] = restart_game_pending
+		info_dict_for_python["First"] = restart_game_pending
 	
 	if info_sent_counter >= 11:
 		pass

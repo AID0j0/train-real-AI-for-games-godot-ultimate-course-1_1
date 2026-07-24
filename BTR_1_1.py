@@ -1035,8 +1035,7 @@ def create_network(input_dims, n_actions, spectral_norm, device, model_size, max
 
 # Buffersize
 # original max_mem_size=1048576
-# hat beides funktioniert max_mem_size=32768*2 UPS das war gar nix
-# 128_000 funktinoiert
+# worked with my 16 GB of RAM & n_parallel=4: max_mem_size=960_000
 class Agent:
     def __init__(self, n_actions, input_dims, device, num_envs, agent_name, total_frames, testing=False, batch_size=256
                  , rr=1, maxpool_size=6, lr=1e-4, target_replace=500, spectral=True, discount=0.997, taus=8,
@@ -1481,7 +1480,7 @@ def main():
     from distutils.util import strtobool
     parser.add_argument('--track', type=lambda x: bool(strtobool(x)), default=True,
                         help="Whether to log to Weights & Biases")
-    parser.add_argument('--wandb_project_name', type=str, default='SpaceInavder_RL')
+    parser.add_argument('--wandb_project_name', type=str, default='TEST_SpaceInvader')
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--torch_deterministic', type=lambda x: bool(strtobool(x)), default=True)
     parser.add_argument('--checkpoint', type=str, default=None,
@@ -1676,6 +1675,9 @@ def main():
                 action.cpu().numpy().reshape(-1, 1)  # reshape (num_envs,) -> (num_envs, 1), mirrors PPO
             )
             agent.learn()
+            
+            #print("reward, done_, trun_, info ")
+            #print(reward, done_, trun_, info )
 
             # --- BATCH 2: busy_lost_won tracking (mirrors PPO exactly) ---
             if args.track and experiment_rewards is None:
