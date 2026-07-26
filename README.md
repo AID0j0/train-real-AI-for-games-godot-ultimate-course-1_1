@@ -1,6 +1,6 @@
 This repository comes with a course.
 
-The free modules of the course are here {INSERT YOUTUBE LINK}
+The free modules of the course are here https://www.youtube.com/watch?v=Q02EwF5M6Ko
 
 The full course is here: https://www.skool.com/ai-dojo-code-rl-in-games-5903/about
 
