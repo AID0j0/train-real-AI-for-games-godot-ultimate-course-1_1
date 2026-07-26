@@ -14,7 +14,7 @@ Train AI agents to crush games. (no boring theory) We take SpaceInvaders as a st
 
 
 
-✅ Carefully structured ~9h course
+✅ Carefully structured ~7h course
 
 
 
