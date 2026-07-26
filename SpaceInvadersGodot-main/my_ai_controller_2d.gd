@@ -4,8 +4,8 @@ var random_agent := false
 var training_with_BTR := true # set this to true when training with BTR.py — sends Ignore/First flags over the network
 
 @onready var REWARDS = {
-	&"AG":				"1_BTR",
-	&"shot_missed":		-0.0,
+	&"AG":				"2_BTR",
+	&"shot_missed":		-0.02,
 	&"game_lost":		-1.,
 	&"life_lost":		-0.9, 
 	&"game_won":		1.,
